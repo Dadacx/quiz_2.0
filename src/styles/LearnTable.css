@@ -1,0 +1,60 @@
+.list {
+    margin-top: 65px;
+    width: 65%;
+    height: fit-content;
+    max-height: 85vh;
+    position: absolute;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    /*visibility: hidden;*/
+    background-color: var(--lern_table_background);
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    color: var(--text_color);
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  table{
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  th {
+    font-size: 22px;
+    cursor: pointer;
+  }
+  td {
+    font-size: 20px;
+  }
+  .break {
+    flex-basis: 100%;
+    height: 0;
+  }
+  .search {
+    margin-top: 10px;
+  }
+  .close {
+    position: fixed;
+    top: 5px;
+    font-family: none;
+    font-size: 40px;
+    width: 45px;
+    transform: rotate(45deg);
+    background: var(--close_backgrouund);
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 7px;
+    margin-top: 7px;
+    cursor: pointer;
+    user-select: none;
+  }

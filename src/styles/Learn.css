@@ -1,0 +1,42 @@
+p.lern {
+    font-size: 35px;
+    margin-bottom: 0;
+    color: var(--text_color);
+}
+p.odp_lern {
+    font-size: 25px;
+    font-weight: normal;
+    visibility: hidden;
+    color: var(--text_color);
+}
+.next_prev_btns {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+.next_prev_btns .confirm {
+    width: 50%;
+}
+#next {
+    margin-left: 5px;
+}
+#previous {
+    margin-right: 5px;
+}
+.progress-bar { 
+    background-color: rgb(192, 192, 192); 
+    width: 80%; 
+    border-radius: 15px; 
+    overflow: hidden;
+} 
+
+.progress { 
+    background-color: rgb(116, 194, 92); 
+    color: white; 
+    text-align: right; 
+    font-size: 20px; 
+    border-radius: 15px; 
+    white-space: pre;
+    transition: 1s;
+}

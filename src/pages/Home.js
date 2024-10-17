@@ -1,5 +1,5 @@
 import "../styles/Home.css"
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ThemeSwitch from '../components/ThemeSwitch'
 
 function Home(props) {

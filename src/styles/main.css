@@ -16,7 +16,9 @@
     --lern_table_background: #232323;
     --close_backgrouund: #4f5152;
   }
-
+  .debug {
+    display: block;
+  }
   body {
     display: flex;
     align-items: center;

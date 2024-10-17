@@ -1,0 +1,13 @@
+p.pytanie {
+    font-size: 35px;
+    color: var(--text_color);
+}
+p.odp {
+    font-size: 22px;
+    color: blue;
+    cursor: pointer;
+}
+p.odp_active {
+    font-size: 22px;
+    color: var(--text_color);
+}

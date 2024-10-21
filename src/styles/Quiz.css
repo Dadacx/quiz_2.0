@@ -50,13 +50,19 @@ p.blad {
     margin-bottom: 0;
     color: red;
 }
+h2 {
+    font-size: 30px;
+}
 .wynik {
-    --color: #48b914;
-    color: var(--color);
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 40px;
 }
 .correct {
-    color: #48b914
+    color: #48b914;
+    font-size: 20px;
 }
 .incorrect {
     color: red;
+    font-size: 20px;
 }

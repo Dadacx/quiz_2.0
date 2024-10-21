@@ -7,9 +7,9 @@ const Home = (props) => {
     <div className="box">
       <ThemeSwitch />
         <p className="menu">MENU</p>
-        <Link className="confirm" to="/learn">UCZ SIĘ</Link>
-        <Link className="confirm" to="/quiz">QUIZ</Link>
-        {/*<Link className="confirm" to="/settings">USTAWIENIA</Link>*/}
+        <Link className="confirm" to="/quiz_2.0/learn">UCZ SIĘ</Link>
+        <Link className="confirm" to="/quiz_2.0/quiz">QUIZ</Link>
+        {/*<Link className="confirm" to="/quiz_2.0/settings">USTAWIENIA</Link>*/}
     </div>
   );
 }

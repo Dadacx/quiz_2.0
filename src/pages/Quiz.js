@@ -40,7 +40,7 @@ const Quiz = (props) => {
         <span class="incorrect">Liczba niepoprawnych odpowiedzi: {incorrect}</span>
       </div>
       <button class="confirm" onClick={again} >JESZCZE RAZ!</button>
-      <Link className="confirm" id="menu" to="/">WRÓĆ DO MENU</Link>
+      <Link className="confirm" id="menu" to="/quiz_2.0/">WRÓĆ DO MENU</Link>
       </>
     );
   }
@@ -77,7 +77,7 @@ const Quiz = (props) => {
         </form>
         <p className="blad" style={{ visibility: isCorrect ? 'hidden' : 'visible' }}>Zła odpowiedź</p>
         <button className="confirm" onClick={check}>SPRAWDŹ</button>
-        <button className="confirm" onClick={() => window.open('/', '_top')}>WRÓĆ DO MENU</button></>}
+        <button className="confirm" onClick={() => window.open('/quiz_2.0', '_top')}>WRÓĆ DO MENU</button></>}
   </>);
 }
 

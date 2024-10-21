@@ -14,7 +14,6 @@ function App() {
   return (
     <ThemeProvider>
       <div className="container">
-        <BrowserRouter>
           <Routes>
             <Route path="/" element={<>
               <div className="debug" style={{ position: "absolute", left: "20%", zoom: 0.6 }}><ThemeSwitch /></div>
@@ -25,7 +24,6 @@ function App() {
               <Route path="quiz" element={<Quiz data={data} />} />
             </Route>
           </Routes>
-        </BrowserRouter>
       </div>
     </ThemeProvider>
   );

@@ -11,3 +11,52 @@ p.odp_active {
     font-size: 22px;
     color: var(--text_color);
 }
+form {
+    margin-top: 20px;
+    width: 35%;
+    height: 25px;
+}
+input.userOdp {
+    width: 100%;
+    height: 35px;
+    border: 0 white solid;
+    border-radius: 30px;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.shake{
+    animation: shake .5s linear;
+  }
+
+  @keyframes shake {
+    8%, 41% {
+        -webkit-transform: translateX(-10px);
+    }
+    25%, 58% {
+        -webkit-transform: translateX(10px);
+    }
+    75% {
+        -webkit-transform: translateX(-5px);
+    }
+    92% {
+        -webkit-transform: translateX(5px);
+    }
+    0%, 100% {
+        -webkit-transform: translateX(0);
+    }
+}
+p.blad {
+    margin-bottom: 0;
+    color: red;
+}
+.wynik {
+    --color: #48b914;
+    color: var(--color);
+}
+.correct {
+    color: #48b914
+}
+.incorrect {
+    color: red;
+}

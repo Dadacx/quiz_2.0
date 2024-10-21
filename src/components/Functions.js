@@ -17,9 +17,9 @@ function Loading() {
     )
 }
 
-function calculatePercent(index, data) {
-    var percent = index / (data.odp.length - 1) * 100
-    return +(Math.round(percent + "e+1") + "e-1") + '%'
+function calculatePercent(value1, value2, round=1) {
+    var percent = value1 / (value2) * 100
+    return +(Math.round(percent + `e+${round}`) + `e-${round}`)
 }
 
 function isDataLoaded(data) {

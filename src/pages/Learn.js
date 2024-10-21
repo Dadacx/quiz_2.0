@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { Loading, calculatePercent, isDataLoaded, randomizeQuestions } from "../components/Functions";
 
 function Loaded(props) {
-  const percent = calculatePercent(props.index, props.data)
+  const percent = calculatePercent(props.index, props.data.odp.length - 1)
   return (
     <div className="box" onClick={() => props.ChangeOdpVisibility('visible')}>
       {props.index < props.data.odp.length ? <div className="progress-bar">
-        <div className="progress" style={{width:percent}}> Pytanie: {props.index + 1}/{props.data.odp.length}{" (" + percent + ") "}</div>
+        <div className="progress" style={{width:percent+'%'}}> Pytanie: {props.index + 1}/{props.data.odp.length}{" (" + percent + "%) "}</div>
       </div> : null}
       <p className="lern" id="lern">{props.index < props.data.odp.length ? props.data.pytania[props.index] : "KONIEC"}</p>
       <p className="odp_lern" id="odp_lern" style={{ visibility: props.OdpVisibility }}>{props.index < props.data.odp.length ? props.data.odp[props.index] : ''}</p>

@@ -2,7 +2,7 @@ import "../styles/Home.css"
 import { Link } from "react-router-dom";
 import ThemeSwitch from '../components/ThemeSwitch'
 
-function Home(props) {
+const Home = (props) => {
   return (
     <div className="box">
       <ThemeSwitch />

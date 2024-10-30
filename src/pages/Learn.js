@@ -3,6 +3,7 @@ import LernTable from "../components/LearnTable";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Loading, calculatePercent, isDataLoaded, randomizeQuestions } from "../components/Functions";
+import SetTitle from "../components/SetTitle";
 
 function Loaded(props) {
   const percent = calculatePercent(props.index, props.data.odp.length - 1)
@@ -18,6 +19,7 @@ function Loaded(props) {
 }
 
 const Learn = (props) => {
+  SetTitle('Ucz się')
   const [TableVisibility, ChangeTableVisibility] = useState("hidden")
   const [index, changeIndex] = useState(0)
   const [OdpVisibility, ChangeOdpVisibility] = useState("hidden")
@@ -43,7 +45,9 @@ const Learn = (props) => {
     setData(randomizeQuestions(props.data))
   }
   return (<>
-    <input className="debug" type="number" value={index} max={isDataLoaded(data) ? data.odp.length : 100} min={0} onChange={(e) => changeIndex(parseInt(e.target.value))}></input>
+    <div className="dev-tools">
+    <input type="number" value={index} max={isDataLoaded(data) ? data.odp.length : 0} min={0} onChange={(e) => changeIndex(parseInt(e.target.value))}></input>
+    </div>
     <LernTable data={props.data} TableVisibility={TableVisibility} ChangeTableVisibility={ChangeTableVisibility} />
     {isDataLoaded(data) ? <Loaded data={data} index={index} OdpVisibility={OdpVisibility} ChangeOdpVisibility={ChangeOdpVisibility} /> : <Loading />}
 

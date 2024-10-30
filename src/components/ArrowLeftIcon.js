@@ -1,7 +1,6 @@
 const ArrowLeftIcon = (props) => {
   return (
     <svg
-      className={props.className}
       width={props.width}
       height={props.height}
       style={{ color: props.color }}

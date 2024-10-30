@@ -41,7 +41,6 @@ function randomizeQuestions(obj) {
     const randomizedFirstArray = indices.map(i => obj.pytania[i]);
     const randomizedSecondArray = indices.map(i => obj.odp[i]);
 
-    console.log("randomize")
     return {
         pytania: randomizedFirstArray,
         odp: randomizedSecondArray

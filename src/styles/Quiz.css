@@ -13,10 +13,10 @@ p.odp_active {
 }
 form {
     margin-top: 20px;
-    width: 35%;
-    height: 25px;
+    width: 40%;
 }
 input.userOdp {
+    box-sizing: border-box;
     width: 100%;
     height: 35px;
     border: 0 white solid;
@@ -47,6 +47,7 @@ input.userOdp {
     }
 }
 p.blad {
+    margin-top: 10px;
     margin-bottom: 0;
     color: red;
 }
@@ -58,11 +59,11 @@ h2 {
     margin-top: 0;
     margin-bottom: 40px;
 }
-.correct {
+span.correct {
     color: #48b914;
     font-size: 20px;
 }
-.incorrect {
+span.incorrect {
     color: red;
     font-size: 20px;
 }

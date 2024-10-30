@@ -58,7 +58,7 @@ const LearnTable = (props) => {
       <div className="close" onClick={() => props.ChangeTableVisibility("hidden")}>+</div>
       <div className="break"></div>
       <input id="search" className="search" onKeyUp={() => search()}></input>
-      <table id="table">
+      <table id="table" className="learnTable">
         <tr><th onClick={() => sortTable(0)}>Pytanie</th><th onClick={() => sortTable(1)}>Odpowiedź</th></tr>
         {props.data.odp != undefined ? props.data.pytania.flatMap((p,i) =><tr><td>{p}</td><td>{props.data.odp[i]}</td></tr>) : null}
       </table>

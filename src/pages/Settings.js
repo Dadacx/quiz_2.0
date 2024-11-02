@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ArrowLeftIcon from '../components/ArrowLeftIcon'
 import ThemeSwitch from '../components/ThemeSwitch'
 import "../styles/Settings.css"

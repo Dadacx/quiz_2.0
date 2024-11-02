@@ -119,6 +119,9 @@
     width: 95%;
     height: 65vh;
   }
+  div.quiz-box {
+    height: 38vh;
+  }
   p.menu {
     font-size: 24px;
   }

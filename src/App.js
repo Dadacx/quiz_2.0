@@ -18,13 +18,13 @@ function App() {
       <div className="container">
         <BrowserRouter basename="/quiz_2.0">
           <Routes>
-            <Route path="/quiz_2.0" element={<>
+            <Route path="/" element={<>
               <div className="dev-tools" style={{left: 'unset'}}><div style={{zoom:0.6}}><ThemeSwitch /></div></div>
               <Outlet /></>}>
               <Route index element={<Home />} />
-              <Route path="settings" element={<Settings lightBox={lightBox} setLightBox={setLightBox} />} />
-              <Route path="learn" element={<Learn data={data} />} />
-              <Route path="quiz" element={<Quiz data={data} />} />
+              <Route path="/settings" element={<Settings lightBox={lightBox} setLightBox={setLightBox} />} />
+              <Route path="/learn" element={<Learn data={data} />} />
+              <Route path="/quiz" element={<Quiz data={data} />} />
             </Route>
           </Routes>
         </BrowserRouter>

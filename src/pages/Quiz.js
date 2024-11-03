@@ -81,6 +81,7 @@ const Quiz = (props) => {
     setIsCorrect(true)
     setShowAnswer(false)
     setIncorrect(0)
+    setQuizLog([])
   }
   function check() {
     if (userOdp.current.value !== '') {
@@ -116,7 +117,7 @@ const Quiz = (props) => {
         </form>
         <p className="blad" style={{ visibility: isCorrect ? 'hidden' : 'visible' }}>Zła odpowiedź</p>
         <button className="confirm" onClick={check}>SPRAWDŹ</button>
-        <button className="confirm" onClick={() => window.open('/', '_top')}>WRÓĆ DO MENU</button></>}
+        <button className="confirm" onClick={() => window.open('/quiz_2.0', '_top')}>WRÓĆ DO MENU</button></>}
   </>);
 }
 

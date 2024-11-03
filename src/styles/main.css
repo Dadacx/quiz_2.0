@@ -19,7 +19,7 @@
     /* --box_light: rgba(255, 255, 255, 0) */
   }
   .dev-tools {
-    display: block;
+    display: none;
     position: absolute;
     left: 5px;
     color: var(--text_color);

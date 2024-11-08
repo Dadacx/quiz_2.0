@@ -8,34 +8,42 @@ import Learn from "./pages/Learn"
 import Quiz from './pages/Quiz'
 import Fetch from "./components/Fetch";
 import { useState } from "react";
+import TestFetch from "./components/TestFetch";
 
 function App() {
   const [lightBox, setLightBox] = useState(localStorage.getItem("lightBox") || { on: 0, color: [255, 255, 255] })
   let data = Fetch()
 
+  TestFetch()
+
   // Dev-tools 
-  if (document.getElementById('dev_tools') !== null) {
-    const button = document.getElementById('dev_tools');
-    button.addEventListener('mousedown', startHold);
-    button.addEventListener('mouseup', cancelHold);
-    button.addEventListener('mouseleave', cancelHold);
-    button.addEventListener('touchstart', startHold);
-    button.addEventListener('touchend', cancelHold);
+  if (document.querySelector('div.container') !== null) {
+    const button = document.querySelector('div.container')
+    button.addEventListener('click', startClicking);
   }
-  let holdTimeout; // Zmienna do przechowywania timeoutu
-  function onHoldComplete() {
-    if(window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block') {
+  let clickCount = 0;
+  let timer
+  function onClickingComplete() {
+    if (window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block') {
       document.styleSheets[0].insertRule('div.dev-tools { display: none; }', document.styleSheets[0].cssRules.length);
+      alert("Dev Toolsy zostały wyłączone");
     } else {
       document.styleSheets[0].insertRule('div.dev-tools { display: block; }', document.styleSheets[0].cssRules.length);
+      alert("Dev Toolsy zostały włączone");
     }
-    alert("Przycisk był trzymany przez 5 sekund!");
   }
-  function startHold() {
-    holdTimeout = setTimeout(onHoldComplete, 5000);
-  }
-  function cancelHold() {
-    clearTimeout(holdTimeout);
+  function startClicking() {
+    clickCount++;
+    if (clickCount === 1) {
+      timer = setTimeout(() => {
+        clickCount = 0;
+      }, 5000);
+    }
+    if (clickCount === 5) {
+      onClickingComplete()
+      clickCount = 0;
+      clearTimeout(timer);
+    }
   }
   // Dev-tools
 

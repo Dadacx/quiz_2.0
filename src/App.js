@@ -18,31 +18,59 @@ function App() {
 
   // Dev-tools 
   if (document.querySelector('div.container') !== null) {
+    //   const button = document.querySelector('div.container')
+    //   button.addEventListener('click', startClicking);
+    // }
+    // let clickCount = 0;
+    // let timer
+    // function onClickingComplete() {
+    //   if (window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block') {
+    //     document.styleSheets[0].insertRule('div.dev-tools { display: none; }', document.styleSheets[0].cssRules.length);
+    //     alert("Dev Toolsy zostały wyłączone");
+    //   } else {
+    //     document.styleSheets[0].insertRule('div.dev-tools { display: block; }', document.styleSheets[0].cssRules.length);
+    //     alert("Dev Toolsy zostały włączone");
+    //   }
+    // }
+    // function startClicking() {
+    //   clickCount++;
+    //   if (clickCount === 1) {
+    //     timer = setTimeout(() => {
+    //       clickCount = 0;
+    //     }, 5000);
+    //   }
+    //   if (clickCount === 5) {
+    //     onClickingComplete()
+    //     clickCount = 0;
+    //     clearTimeout(timer);
+    //   }
+    // Pobieramy przycisk z dokumentu (załóżmy, że ma id="button")
     const button = document.querySelector('div.container')
-    button.addEventListener('click', startClicking);
-  }
-  let clickCount = 0;
-  let timer
-  function onClickingComplete() {
-    if (window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block') {
-      document.styleSheets[0].insertRule('div.dev-tools { display: none; }', document.styleSheets[0].cssRules.length);
-      alert("Dev Toolsy zostały wyłączone");
-    } else {
-      document.styleSheets[0].insertRule('div.dev-tools { display: block; }', document.styleSheets[0].cssRules.length);
-      alert("Dev Toolsy zostały włączone");
+    let holdTimeout; // Zmienna do przechowywania timeoutu
+
+    // Funkcja, która zostanie wywołana po 5 sekundach przytrzymania przycisku
+    function onHoldComplete() {
+      if (window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block') {
+            document.styleSheets[0].insertRule('div.dev-tools { display: none; }', document.styleSheets[0].cssRules.length);
+            alert("Dev Toolsy zostały wyłączone");
+          } else {
+            document.styleSheets[0].insertRule('div.dev-tools { display: block; }', document.styleSheets[0].cssRules.length);
+            alert("Dev Toolsy zostały włączone");
+          }
     }
-  }
-  function startClicking() {
-    clickCount++;
-    if (clickCount === 1) {
-      timer = setTimeout(() => {
-        clickCount = 0;
-      }, 5000);
+
+    button.addEventListener('mousedown', startHold);
+    button.addEventListener('mouseup', cancelHold);
+    button.addEventListener('mouseleave', cancelHold);
+    button.addEventListener('touchstart', startHold);
+    button.addEventListener('touchend', cancelHold);
+    
+    function startHold() {
+      holdTimeout = setTimeout(onHoldComplete, 5000);
     }
-    if (clickCount === 5) {
-      onClickingComplete()
-      clickCount = 0;
-      clearTimeout(timer);
+    
+    function cancelHold() {
+      clearTimeout(holdTimeout);
     }
   }
   // Dev-tools

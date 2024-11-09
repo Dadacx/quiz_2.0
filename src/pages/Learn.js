@@ -57,7 +57,7 @@ const Learn = (props) => {
     {(isDataLoaded(data) && index === data.odp.length) ? <button className="confirm" onClick={() => { changeIndex(0); setData(randomizeQuestions(data)) }}>JESZCZE RAZ</button> : null}
     <button className="confirm" id="list" onClick={() => ChangeTableVisibility("visible")}>LISTA PYTAŃ I ODPOWIEDZI</button>
     {(isDataLoaded(data) && index === data.odp.length) ? <Link className="confirm" to="/quiz">ROZWIĄŻ QUIZ</Link> : null}
-    <Link className="confirm" id="menu" to="/">WRÓĆ DO MENU</Link>
+    <Link className="confirm" id="menu" to="/home">WRÓĆ DO MENU</Link>
   </>
   );
 }

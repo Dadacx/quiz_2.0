@@ -17,7 +17,7 @@ function Settings({lightBox, setLightBox}) {
     return (
         <div className="box">
             <ThemeSwitch />
-            <Link className="arrow_back" to="/"><ArrowLeftIcon width={40} height={40} color="var(--text_color)" /></Link>
+            <Link className="arrow_back" to="/home"><ArrowLeftIcon width={40} height={40} color="var(--text_color)" /></Link>
             <p className="menu">USTAWIENIA</p>
             <div className="light_box">
                 <span>Podświetlenie boxa</span>

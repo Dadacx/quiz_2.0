@@ -1,0 +1,26 @@
+p.lern {
+    font-size: 35px;
+    margin-bottom: 0;
+    color: var(--text_color);
+}
+p.odp_lern {
+    font-size: 25px;
+    font-weight: normal;
+    visibility: hidden;
+    color: var(--text_color);
+}
+.next_prev_btns {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+.next_prev_btns .confirm {
+    width: 50%;
+}
+#next {
+    margin-left: 5px;
+}
+#previous {
+    margin-right: 5px;
+}

@@ -1,0 +1,100 @@
+.log {
+  z-index: 1;
+    margin-top: 65px;
+    width: 70%;
+    height: fit-content;
+    max-height: 85vh;
+    position: absolute;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    background-color: var(--lern_table_background);
+    flex-wrap: wrap;
+    color: var(--text_color);
+}
+.log::-webkit-scrollbar {
+  width: 10px;
+}
+.log::-webkit-scrollbar-track {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+.log::-webkit-scrollbar-thumb {
+  background: var(--text_color); 
+  border-radius: 10px;
+}
+/* top-left border-radius */
+table tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+
+/* top-right border-radius */
+table tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+table.logTable, table.logTable th, table.logTable td {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  table.logTable {
+    width: 95%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-collapse: separate;
+  border-spacing: 0;
+  border: 0;
+  }
+  table.logTable th {
+    font-size: 22px;
+    background-color: gray;
+    /* overflow-wrap: normal; */
+  }
+  table.logTable td {
+    font-size: 20px;
+  }
+  table.logTable tr.correct {
+    background-color: rgba(0, 128, 0, 0.5);
+    z-index: -1;
+  }
+  table.logTable tr.incorrect {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+  .break {
+    flex-basis: 100%;
+    height: 0;
+  }
+  .close {
+    position: fixed;
+    top: 5px;
+    font-family: none;
+    font-size: 40px;
+    width: 45px;
+    transform: rotate(45deg);
+    background: var(--close_backgrouund);
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 7px;
+    margin-top: 7px;
+    cursor: pointer;
+    user-select: none;
+  }

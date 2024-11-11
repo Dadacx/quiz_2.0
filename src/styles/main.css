@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:800i&display=swap');
+
+:root {
+    --body_background: url("../images/background_light.png");
+    --box_background: lightyellow;
+    --buttons_background: #3ed81f;
+    --text_color: black;
+    --lern_table_background: rgb(250, 250, 190);
+    --close_backgrouund: red;
+    --box_light: rgba(255, 255, 255, 0)
+  }
+  [data-theme="dark"] {
+    --body_background: url("../images/background_dark.png");
+    --box_background: #292d2e;
+    --buttons_background: #35ab1d;
+    --text_color: white;
+    --lern_table_background: #232323;
+    --close_backgrouund: #4f5152;
+    /* --box_light: rgba(255, 255, 255, 0) */
+  }
+  .dev-tools {
+    display: none;
+    position: absolute;
+    left: 5px;
+    color: var(--text_color);
+    z-index: 1;
+    top: 5px;
+  }
+  .dev-tools > * > div.wrapper {
+    position: unset;
+  }
+  /* * {
+    box-sizing: border-box;
+  } */
+  body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: var(--body_background);
+    font-family: 'Nunito', sans-serif;
+  }
+  .theme {
+    position: absolute;
+    top: 0;
+  }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  div.box {
+    filter: drop-shadow(0 0 0.75rem var(--box_light));
+    width: 75%;
+    height: 300px;
+    background-color: var(--box_background);
+    margin-top: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    word-break: break-word;
+  }
+  .confirm {
+    margin-top: 10px;
+    width: 25%;
+    height: 45px;
+    border: 0;
+    border-radius: 30px;
+    background-color: var(--buttons_background);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+  }
+  .confirm a {
+    color: white;
+  }
+  .arrow_back {
+    position: absolute;
+    top: 10%;
+    left: 3%;
+}
+.menu {
+  position: absolute;
+  top: 6%;
+  color: var(--text_color);
+  font-size: 30px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.progress-bar { 
+  position: absolute;
+  top: 6%;
+  background-color: rgb(192, 192, 192); 
+  width: 80%; 
+  border-radius: 15px; 
+  overflow: hidden;
+} 
+
+.progress { 
+  background-color: rgb(116, 194, 92); 
+  color: white; 
+  text-align: right; 
+  font-size: 20px; 
+  border-radius: 15px; 
+  white-space: pre;
+  transition: 1s;
+}
+
+@media screen and (max-width: 450px) {
+  /* main */
+  div.box {
+    width: 95%;
+    height: 65vh;
+  }
+  div.quiz-box {
+    height: 38vh;
+  }
+  p.menu {
+    font-size: 24px;
+  }
+  .confirm {
+    width: 50%;
+  }
+  /* ThemeSwitch */
+  div.wrapper {
+    zoom: 26%;
+    right: 4%;
+  }
+  /* Learn */
+  div.next_prev_btns {
+    width: 80%;
+  }
+  /* LearnTable, QuizLogTable */
+  div.list, div.log {
+    width: 90%;
+  }
+  table.logTable > tr > th {
+    font-size: 17px;
+  }
+  table.logTable > tr > td {
+    font-size: 15px;
+  }
+  /* Quiz */
+  form.userOdp {
+    width: 80%;
+  }
+  /* Ustawienia */
+  a.arrow_back {
+    top: 5%;
+  }
+}

@@ -7,7 +7,7 @@ const QuizzesListFetch = async () => {
         return data;
     } catch (error) {
         console.error('Error:', error);
-        return [{ "status": "error", "message": `[ERROR: ${error.message}] Serwer jest niedostępny` }];
+        return { "status": "error", "message": `[ERROR: ${error.message}] Serwer jest niedostępny` };
     }
   };
 
@@ -20,7 +20,7 @@ const QuizzesListFetch = async () => {
         return data;
     } catch (error) {
         console.error('Error:', error);
-        return [{ "status": "error", "message": `[ERROR: ${error.message}] Serwer jest niedostępny` }];
+        return { "status": "error", "message": `[ERROR: ${error.message}] Serwer jest niedostępny` };
     }
   };
   

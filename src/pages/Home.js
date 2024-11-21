@@ -1,29 +1,23 @@
 import "../styles/Home.css"
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import ThemeSwitch from '../components/ThemeSwitch'
 import SetTitle from "../components/SetTitle";
-import { QuizFetch } from "../components/Fetch";
 import { useParams } from 'react-router-dom';
 
-const Home = ({ setData}) => {
+import ArrowLeftIcon from '../components/ArrowLeftIcon'
+
+const Home = ({ setQuizName, error }) => {
   SetTitle('Home')
   const { quiz } = useParams(); // Wyciągamy parametr z URL
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedData = await QuizFetch(quiz);
-      setData(fetchedData);
-    };
-    fetchData();
-  }, []);
+  setQuizName(quiz)
   return (
     <div className="box">
-      <p>Otrzymane dane: {quiz}</p>
-      {/* <ThemeSwitch /> */}
-        <p className="menu">MENU</p>
-        <Link className="confirm" to="/learn">UCZ SIĘ</Link>
-        <Link className="confirm" to="/quiz">QUIZ</Link>
-        <Link className="confirm" to="/settings">USTAWIENIA</Link>
+      <Link className="arrow_back" title="Wybierz inny quiz" to="/"><ArrowLeftIcon width={40} height={40} color="var(--text_color)" /></Link>
+      {/* <p className="menu">MENU</p> */}
+      <p className="menu">Wybrany quiz: {quiz}</p>
+      {!error ? <><Link className="confirm" to={`/${quiz}/learn`}>UCZ SIĘ</Link>
+      <Link className="confirm" to={`/${quiz}/quiz`}>QUIZ</Link>
+      <Link className="confirm" to={`/${quiz}/settings`}>USTAWIENIA</Link></> : 
+      <p className="error">{error}</p>}
     </div>
   );
 }

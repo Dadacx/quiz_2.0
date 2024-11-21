@@ -22,13 +22,6 @@ function calculatePercent(value1, value2, round=1) {
     return +(Math.round(percent + `e+${round}`) + `e-${round}`)
 }
 
-function isDataLoaded(data) {
-    if (data.answers === undefined) {
-        return false
-    } else {
-        return true
-    }
-}
 function randomizeQuestions(obj) {
     const length = obj.questions.length;
     let indices = Array.from({ length }, (_, i) => i);
@@ -42,9 +35,9 @@ function randomizeQuestions(obj) {
     const randomizedSecondArray = indices.map(i => obj.answers[i]);
 
     return {
-        question: randomizedFirstArray,
+        questions: randomizedFirstArray,
         answers: randomizedSecondArray
     };
 }
 
-export { Loading, calculatePercent, isDataLoaded, randomizeQuestions }
+export { Loading, calculatePercent, randomizeQuestions }

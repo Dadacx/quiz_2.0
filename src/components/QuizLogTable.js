@@ -1,5 +1,4 @@
 import "../styles/QuizLogTable.css"
-import { useState } from "react";
 
 const LearnTable = (props) => {
   return (

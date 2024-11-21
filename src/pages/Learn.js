@@ -2,8 +2,9 @@ import "../styles/Learn.css"
 import LernTable from "../components/LearnTable";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Loading, calculatePercent, isDataLoaded, randomizeQuestions } from "../components/Functions";
+import { Loading, calculatePercent, randomizeQuestions } from "../components/Functions";
 import SetTitle from "../components/SetTitle";
+import { useParams } from 'react-router-dom';
 
 function Loaded(props) {
   const percent = calculatePercent(props.index, props.data.answers.length - 1)
@@ -22,11 +23,12 @@ const Learn = (props) => {
   SetTitle('Ucz się')
   const [TableVisibility, ChangeTableVisibility] = useState("hidden")
   const [index, changeIndex] = useState(0)
-  const [OdpVisibility, ChangeOdpVisibility] = useState("hidden")
-  const [data, setData] = useState({})
+  const [answerVisibility, ChangeAnswerVisibility] = useState("hidden")
+  const [data, setData] = useState(null)
+  const { quiz } = useParams(); // Wyciągamy parametr z URL
   function changeQuestion(value) {
-    if (isDataLoaded(data)) {
-      ChangeOdpVisibility("hidden")
+    if (data) {
+      ChangeAnswerVisibility("hidden")
       changeIndex((index) => {
         const newIndex = index + value;
         if (newIndex < 0) {
@@ -39,34 +41,34 @@ const Learn = (props) => {
       });
     }
   }
-
-  // if (isDataLoaded(props.data) && data.odp === undefined) {
-  //   setData(randomizeQuestions(props.data))
-  // }
-  if (props.data.status === 'success') {
+  if (props.data && props.data.status === 'success' && !data) {
     var questions = []
     var answers = []
     props.data.quiz.map(item => {
       questions.push(item.question)
       answers.push(item.answer)
     })
-    console.log(questions,answers)
-    // setData(randomizeQuestions(props.data))
+    setData(randomizeQuestions({
+      questions: questions,
+      answers: answers
+  }))
+  } else {
+    props.setQuizName(quiz)
   }
   return (<>
     <div className="dev-tools">
-    <input type="number" value={index} max={isDataLoaded(data) ? data.answers.length : 0} min={0} onChange={(e) => changeIndex(parseInt(e.target.value))}></input>
+    <input type="number" value={index} max={data ? data.answers.length : 0} min={0} onChange={(e) => changeIndex(parseInt(e.target.value))}></input>
     </div>
     <LernTable data={props.data} TableVisibility={TableVisibility} ChangeTableVisibility={ChangeTableVisibility} />
-    {isDataLoaded(data) ? <Loaded data={data} index={index} OdpVisibility={OdpVisibility} ChangeOdpVisibility={ChangeOdpVisibility} /> : <Loading />}
+    {data ? <Loaded data={data} index={index} OdpVisibility={answerVisibility} ChangeOdpVisibility={ChangeAnswerVisibility} /> : <Loading />}
 
-    {(isDataLoaded(data) && index < data.answers.length) ? <div className="next_prev_btns"><button className="confirm" id="next" onClick={() => changeQuestion(1)}>NASTĘPNY {">>"}</button>
+    {(data && index < data.answers.length) ? <div className="next_prev_btns"><button className="confirm" id="next" onClick={() => changeQuestion(1)}>NASTĘPNY {">>"}</button>
       <button className="confirm" id="previous" onClick={() => changeQuestion(-1)}>{"<<"} POPRZEDNI</button></div> : null}
 
-    {(isDataLoaded(data) && index === data.answers.length) ? <button className="confirm" onClick={() => { changeIndex(0); setData(randomizeQuestions(data)) }}>JESZCZE RAZ</button> : null}
+    {(data && index === data.answers.length) ? <button className="confirm" onClick={() => { changeIndex(0); setData(randomizeQuestions(data)) }}>JESZCZE RAZ</button> : null}
     <button className="confirm" id="list" onClick={() => ChangeTableVisibility("visible")}>LISTA PYTAŃ I ODPOWIEDZI</button>
-    {(isDataLoaded(data) && index === data.answers.length) ? <Link className="confirm" to="/quiz">ROZWIĄŻ QUIZ</Link> : null}
-    <Link className="confirm" id="menu" to="/home">WRÓĆ DO MENU</Link>
+    {(data && index === data.answers.length) ? <Link className="confirm" to={`/${quiz}/quiz`}>ROZWIĄŻ QUIZ</Link> : null}
+    <Link className="confirm" id="menu" to={`/${quiz}/home`}>WRÓĆ DO MENU</Link>
   </>
   );
 }

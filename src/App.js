@@ -7,54 +7,60 @@ import Home from './pages/Home'
 import Settings from "./pages/Settings";
 import Learn from "./pages/Learn"
 import Quiz from './pages/Quiz'
-import Fetch1 from "./components/Fetch1";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { QuizFetch } from "./components/Fetch";
 
 function App() {
   const [lightBox, setLightBox] = useState(localStorage.getItem("lightBox") || { on: 0, color: [255, 255, 255] })
+  const [quizName, setQuizName] = useState(null)
   const [data, setData] = useState(null)
-  // let data = Fetch1()
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedData = await QuizFetch(quizName);
+      if(fetchedData.status === 'error') {
+        setError(fetchedData.message)
+        setData(null);
+      } else {
+        setError(null)
+        setData(fetchedData);
+      }
+    };
+    if (quizName) {
+      fetchData();
+    }
+  }, [quizName]);
 
   // Dev-tools 
-  if (document.querySelector('div.container') !== null) {
-    const button = document.querySelector('div.container')
-    let holdTimeout;
-    function onHoldComplete() {
-      if (window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block') {
-            document.styleSheets[0].insertRule('div.dev-tools { display: none; }', document.styleSheets[0].cssRules.length);
-            alert("Dev Toolsy zostały wyłączone");
-          } else {
-            document.styleSheets[0].insertRule('div.dev-tools { display: block; }', document.styleSheets[0].cssRules.length);
-            alert("Dev Toolsy zostały włączone");
-          }
-    }
-    button.addEventListener('mousedown', startHold);
-    button.addEventListener('mouseup', cancelHold);
-    button.addEventListener('mouseleave', cancelHold);
-    button.addEventListener('touchstart', startHold);
-    button.addEventListener('touchend', cancelHold);
-    function startHold() {
-      holdTimeout = setTimeout(onHoldComplete, 10000);
-    }
-    function cancelHold() {
-      clearTimeout(holdTimeout);
+  function toggleDevTools() {
+    if (window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block') {
+      document.styleSheets[0].insertRule('div.dev-tools { display: none; }', document.styleSheets[0].cssRules.length);
+      alert("Dev Toolsy zostały wyłączone");
+    } else {
+      document.styleSheets[0].insertRule('div.dev-tools { display: block; }', document.styleSheets[0].cssRules.length);
+      alert("Dev Toolsy zostały włączone");
     }
   }
+  useEffect(() => {
+    window.toggleDevTools = toggleDevTools;
+  }, []);
   // Dev-tools
-console.log(data)
+  console.log(data)
   return (
     <ThemeProvider>
       <div className="container">
         <BrowserRouter basename="/quiz_2.0">
           <Routes>
             <Route path="/" element={<>
-              <div className="dev-tools" style={{ left: 'unset' }}><div id="dev_tools" style={{ zoom: 0.6 }}><ThemeSwitch /></div></div>
+              <div className="dev-tools" style={{ left: 'unset' }}><div id="dev_tools" style={{ zoom: 0.6 }}><ThemeSwitch /></div>
+              <button onClick={toggleDevTools}>Wyłącz Dev-Toolsy</button>
+              </div>
               <Outlet /></>}>
               <Route index element={<Start />} />
-              <Route path="/:quiz/home" element={<Home setData={setData} />} />
-              <Route path="/settings" element={<Settings lightBox={lightBox} setLightBox={setLightBox} />} />
-              <Route path="/learn" element={<Learn data={data} />} />
-              <Route path="/quiz" element={<Quiz data={data} />} />
+              <Route path="/:quiz/home" element={<Home setQuizName={setQuizName} error={error}/>} />
+              <Route path=":quiz/settings" element={<Settings lightBox={lightBox} setLightBox={setLightBox} />} />
+              <Route path="/:quiz/learn" element={<Learn data={data} setQuizName={setQuizName} />} />
+              <Route path="/:quiz/quiz" element={<Quiz data={data} setQuizName={setQuizName} />} />
             </Route>
           </Routes>
         </BrowserRouter>

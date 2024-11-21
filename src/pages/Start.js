@@ -12,7 +12,14 @@ const Start = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       const fetchedData = await QuizzesListFetch();
-      setQuizzesList(fetchedData);
+      console.log(fetchedData)
+      if(fetchedData.status === 'error') {
+        setError(fetchedData.message)
+        setQuizzesList(null);
+      } else {
+        setError(null)
+        setQuizzesList(fetchedData);
+      }
     };
     fetchData();
   }, []);
@@ -20,9 +27,9 @@ const Start = (props) => {
     <div className="box quizzes-list-box">
       <p className="menu">Wybierz quiz</p>
       <div className="quizzes-list">
-        {quizzesList !== null ? quizzesList.data.map(item =>
+        {quizzesList ? quizzesList.data.map(item =>
           <Link className="confirm quiz" to={`${item.name}/home`}>{item.display_name}</Link>
-        ) : null}
+        ) : <p className="error">{error}</p>}
       </div>
     </div>
   );

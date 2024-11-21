@@ -1,9 +1,10 @@
 import '../styles/Quiz.css'
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Loading, calculatePercent, isDataLoaded, randomizeQuestions } from "../components/Functions";
+import { Loading, calculatePercent, randomizeQuestions } from "../components/Functions";
 import SetTitle from '../components/SetTitle';
 import QuizLogTable from '../components/QuizLogTable'
+import { useParams } from 'react-router-dom';
 
 function Loaded(props) {
   const percent = calculatePercent(props.index, props.data.answers.length - 1)
@@ -23,12 +24,13 @@ const Quiz = (props) => {
   SetTitle('Quiz')
   const [logTableVisibility, setLogTableVisibility] = useState("hidden")
   const [index, setIndex] = useState(0)
-  const [data, setData] = useState({})
+  const [data, setData] = useState(null)
   const [isCorrect, setIsCorrect] = useState(true)
   const [showAnswer, setShowAnswer] = useState(false)
   const [incorrect, setIncorrect] = useState(0)
   const [quizLog, setQuizLog] = useState([])
   const userOdp = useRef(null)
+  const { quiz } = useParams(); // Wyciągamy parametr z URL
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
@@ -45,13 +47,13 @@ const Quiz = (props) => {
   const DevTools = () => {
     // automatyczne uzupełnianie inputa
     const isVisible = document.querySelector('div.dev-tools') !== null && window.getComputedStyle(document.querySelector('div.dev-tools')).display === 'block' ? true : false
-    if (isDataLoaded(data) && document.querySelector('input.userOdp') != undefined && isVisible) document.querySelector('input.userOdp').value = data.answers[index]
+    if (data && document.querySelector('input.userOdp') && isVisible) document.querySelector('input.userOdp').value = data.answers[index]
     
     return (
       <div className='dev-tools'>
-        <input type="number" value={index} max={isDataLoaded(data) ? data.answers.length : 100} min={0} onChange={(e) => setIndex(parseInt(e.target.value))}></input>
+        <input type="number" value={index} max={data ? data.answers.length : 100} min={0} onChange={(e) => setIndex(parseInt(e.target.value))}></input>
         <p style={{ color: 'red' }}>Złe: {incorrect}</p>
-        <p>Odp: {isDataLoaded(data) ? data.answers[index] : null}</p>
+        <p>Odp: {data ? data.answers[index] : null}</p>
       </div>
     )
   }
@@ -71,7 +73,7 @@ const Quiz = (props) => {
         </div>
         <button className="confirm" onClick={again} >JESZCZE RAZ!</button>
         <button className="confirm" onClick={() => setLogTableVisibility('visible')} >POKAŻ LOG QUIZU</button>
-        <Link className="confirm" id="menu" to="/home">WRÓĆ DO MENU</Link>
+        <Link className="confirm" id="menu" to={`/${quiz}/home`}>WRÓĆ DO MENU</Link>
       </>
     );
   }
@@ -104,20 +106,32 @@ const Quiz = (props) => {
     document.querySelector('input.userOdp').focus()
   }
 
-  if (isDataLoaded(props.data) && data.answers === undefined) {
-    setData(randomizeQuestions(props.data))
+  if (props.data && props.data.status === 'success' && !data) {
+    var questions = []
+    var answers = []
+    props.data.quiz.map(item => {
+      questions.push(item.question)
+      answers.push(item.answer)
+    })
+    setData(randomizeQuestions({
+      questions: questions,
+      answers: answers
+  }))
+  } else {
+    props.setQuizName(quiz)
   }
+  console.log(data)
   return (<>
-    {(isDataLoaded(data) && index === data.answers.length) ? <End /> :
+    {(data && index === data.answers.length) ? <End /> :
       <>
         <DevTools />
-        {isDataLoaded(data) ? <Loaded data={data} index={index} isCorrect={isCorrect} showAnswer={showAnswer} setShowAnswer={setShowAnswer} /> : <Loading />}
+        {data ? <Loaded data={data} index={index} isCorrect={isCorrect} showAnswer={showAnswer} setShowAnswer={setShowAnswer} /> : <Loading />}
         <form className='userOdp' onSubmit={(e) => { e.preventDefault(); check() }}>
           <input autoFocus={true} type="text" className={!isCorrect ? 'userOdp shake' : "userOdp"} ref={userOdp} autoComplete="off" placeholder="Tu wpisz odpowiedź" />
         </form>
         <p className="blad" style={{ visibility: isCorrect ? 'hidden' : 'visible' }}>Zła odpowiedź</p>
         <button className="confirm" onClick={check}>SPRAWDŹ</button>
-        <button className="confirm" onClick={() => window.open('/quiz_2.0/home', '_top')}>WRÓĆ DO MENU</button></>}
+        <button className="confirm" onClick={() => window.open(`/quiz_2.0/${quiz}/home`, '_top')}>WRÓĆ DO MENU</button></>}
   </>);
 }
 

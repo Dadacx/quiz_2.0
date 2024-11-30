@@ -1,4 +1,5 @@
 import "../styles/LearnTable.css"
+import x from "../images/close.svg"
 
 function search() {
   var input, filter, table, tr, td, i, txtValue;
@@ -44,7 +45,7 @@ function sortTable(column) {
 const LearnTable = (props) => {
   return (
     <div className="list" id="list" style={{ visibility: props.TableVisibility }}>
-      <div className="close" onClick={() => props.ChangeTableVisibility("hidden")}>+</div>
+      <div className="close" onClick={() => props.ChangeTableVisibility("hidden")}><img src={x} /></div>
       <div className="break"></div>
       <input id="search" className="search" onKeyUp={() => search()}></input>
       <table id="table" className="learnTable">

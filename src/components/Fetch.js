@@ -23,5 +23,23 @@ const QuizzesListFetch = async () => {
         return { "status": "error", "message": `[ERROR: ${error.message}] Serwer jest niedostępny` };
     }
   };
+  const EditFetch = async (editedData) => {
+    try {
+        const res = await fetch(`https://frog02-20766.wykr.es/edit.php`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json" // ustawienie nagłówka na JSON
+            },
+            body: JSON.stringify(editedData) // konwersja danych do formatu JSON
+          });
+        //if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        var data = await res.json();
+        // console.log(data)
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+        return { "status": "error", "message": `[ERROR: ${error.message}] Serwer jest niedostępny` };
+    }
+  };
   
-  export { QuizzesListFetch, QuizFetch }
+  export { QuizzesListFetch, QuizFetch, EditFetch }

@@ -1,9 +1,9 @@
 .list {
   z-index: 1;
-    margin-top: 65px;
+    margin-top: 60px;
     width: 70%;
     height: fit-content;
-    max-height: 85vh;
+    max-height: 90vh;
     position: absolute;
     border-radius: 25px;
     display: flex;
@@ -28,25 +28,7 @@
   background: var(--text_color); 
   border-radius: 10px;
 }
-/* top-left border-radius */
-table tr:first-child th:first-child {
-  border-top-left-radius: 10px;
-}
 
-/* top-right border-radius */
-table tr:first-child th:last-child {
-  border-top-right-radius: 10px;
-}
-
-/* bottom-left border-radius */
-table tr:last-child td:first-child {
-  border-bottom-left-radius: 10px;
-}
-
-/* bottom-right border-radius */
-table tr:last-child td:last-child {
-  border-bottom-right-radius: 10px;
-}
 table.learnTable, table.learnTable th, table.learnTable td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -74,24 +56,4 @@ table.learnTable, table.learnTable th, table.learnTable td {
   }
   .search {
     margin-top: 10px;
-  }
-  .close {
-    position: fixed;
-    top: 5px;
-    font-family: none;
-    font-size: 40px;
-    width: 45px;
-    transform: rotate(45deg);
-    background: var(--close_backgrouund);
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    border-radius: 50%;
-    align-items: center;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 7px;
-    margin-top: 7px;
-    cursor: pointer;
-    user-select: none;
   }

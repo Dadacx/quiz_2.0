@@ -1,9 +1,10 @@
 import "../styles/QuizLogTable.css"
+import x from "../images/close.svg"
 
 const LearnTable = (props) => {
   return (
     <div className="log" style={{ visibility: props.logTableVisibility }}>
-      <div className="close" onClick={() => props.setLogTableVisibility("hidden")}>+</div>
+      <div className="close" onClick={() => props.setLogTableVisibility("hidden")}><img src={x} /></div>
       <div className="break"></div>
       <table className="logTable" id="logTable">
         <tr><th>Pytanie</th><th>Poprawna odpowiedź</th><th>Twoja odpowiedź</th></tr>

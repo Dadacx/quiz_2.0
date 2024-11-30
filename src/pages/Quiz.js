@@ -35,6 +35,9 @@ const Quiz = (props) => {
   const { quiz } = useParams(); // Wyciągamy parametr z URL
 
   useEffect(() => {
+    props.setQuizName(quiz)
+  }, [quiz]);
+  useEffect(() => {
     const handleBeforeUnload = (e) => {
       e.preventDefault();
       e.returnValue = '';
@@ -69,7 +72,7 @@ const Quiz = (props) => {
           {percent >= 75 ? <h2 style={{ color: '#48b914' }}>Gratulacje!</h2> : null}
           {percent > 35 && percent < 75 ? <h2 style={{ color: '#e6b000' }}>Mogło być lepiej :/</h2> : null}
           {percent <= 35 ? <h2 style={{ color: 'red' }}>Nie tym razem ¯\_(ツ)_/¯</h2> : null}
-          <p style={percent >= 75 ? { color: '#48b914' } : percent <= 35 ? { color: 'red' } : { color: '#e6b000' }} class="wynik">Ukończyłeś Quiz z wynikiem: {percent}%</p>
+          <p style={percent >= 75 ? { color: '#48b914' } : percent <= 35 ? { color: 'red' } : { color: '#e6b000' }} className="wynik">Ukończyłeś Quiz z wynikiem: {percent}%</p>
           <span className="correct">Liczba poprawnych odpowiedzi: {correct}</span>
           <span className="incorrect">Liczba niepoprawnych odpowiedzi: {incorrect}</span>
         </div>
@@ -120,8 +123,6 @@ const Quiz = (props) => {
       questions: questions,
       answers: answers
     }))
-  } else {
-    props.setQuizName(quiz)
   }
   function limitQuestions() {
     var questions = []

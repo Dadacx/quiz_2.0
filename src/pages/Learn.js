@@ -28,6 +28,9 @@ const Learn = (props) => {
   const questionsCountInput = useRef(data?.answers.length)
   const { quiz } = useParams(); // Wyciągamy parametr z URL
   useEffect(() => {
+    props.setQuizName(quiz)
+  }, [quiz]);
+  useEffect(() => {
     const handleKeyUp = (e) => {
       if (e.key === " " || e.key === "ArrowDown") {
         ChangeAnswerVisibility('visible');
@@ -71,8 +74,6 @@ const Learn = (props) => {
       questions: questions,
       answers: answers
     }))
-  } else {
-    props.setQuizName(quiz)
   }
   function test() {
     var questions = []

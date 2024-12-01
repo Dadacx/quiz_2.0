@@ -7,13 +7,13 @@ import QuizLogTable from '../components/QuizLogTable'
 import { useParams } from 'react-router-dom';
 
 function Loaded(props) {
-  const percent = calculatePercent(props.index, props.questionsCount - 1)
+  const percent = calculatePercent(props.index, props.data.answers.length - 1)
   return (
     <div className="box quiz-box">
-      {props.index < props.questionsCount ? <div className="progress-bar">
-        <div className="progress" style={{ width: percent + '%' }}> Pytanie: {props.index + 1}/{props.questionsCount}{" (" + percent + "%) "}</div>
+      {props.index < props.data.answers.length ? <div className="progress-bar">
+        <div className="progress" style={{ width: percent + '%' }}> Pytanie: {props.index + 1}/{props.data.answers.length}{" (" + percent + "%) "}</div>
       </div> : null}
-      <p className="pytanie">{props.index < props.questionsCount ? props.data.questions[props.index] : null}</p>
+      <p className="pytanie">{props.index < props.data.answers.length ? props.data.questions[props.index] : null}</p>
       <p className={props.showAnswer ? 'odp_active' : 'odp'} style={{ visibility: props.isCorrect ? 'hidden' : 'visible' }}
         onClick={() => props.setShowAnswer(true)}>{props.showAnswer ? props.data.answers[props.index] : 'Pokaż poprawną odpowiedź'}</p>
     </div>
@@ -29,8 +29,6 @@ const Quiz = (props) => {
   const [showAnswer, setShowAnswer] = useState(false)
   const [incorrect, setIncorrect] = useState(0)
   const [quizLog, setQuizLog] = useState([])
-  const [questionsCount, setQuestionsCount] = useState(0)
-  const questionsCountInput = useRef(data?.answers.length)
   const userOdp = useRef(null)
   const { quiz } = useParams(); // Wyciągamy parametr z URL
 
@@ -114,7 +112,6 @@ const Quiz = (props) => {
   if (props.data && props.data.status === 'success' && !data) {
     var questions = []
     var answers = []
-    setQuestionsCount(props.data.quiz.length)
     props.data.quiz.map(item => {
       questions.push(item.question)
       answers.push(item.answer)
@@ -124,28 +121,31 @@ const Quiz = (props) => {
       answers: answers
     }))
   }
-  function limitQuestions() {
-    var questions = []
-    var answers = []
-    setQuestionsCount(questionsCountInput.current.value)
-    again()
-    for (let i = 0; i < questionsCountInput.current.value; i++) {
-      questions.push(props.data.quiz[i].question)
-      answers.push(props.data.quiz[i].answer)
-    }
-    setData(randomizeQuestions({
-      questions: questions,
-      answers: answers
-    }))
+  function changeLimit() {
+    const from = document.querySelector("#from").value - 1
+    const to = document.querySelector("#to").value - 1
+
+    const slicedData = props.data.quiz.slice(from, to + 1);
+    const result = {
+      questions: slicedData.map((item) => item.question),
+      answers: slicedData.map((item) => item.answer)
+    };
+    setData(randomizeQuestions(result))
+    setIndex(0)
+    setIsCorrect(true)
+    setShowAnswer(false)
+    setIncorrect(0)
+    setQuizLog([])
   }
   return (<>
-    <form className='limit' onSubmit={(e) => { e.preventDefault(); console.log(questionsCount); limitQuestions() }}>
-      <input type="number" ref={questionsCountInput} placeholder="Ilość pytań od początku" />
-    </form>
     {(data && index === data.answers.length) ? <End /> :
       <>
+        <form className="limit" onSubmit={(e) => { e.preventDefault() }}>
+          <input type="number" className="limit" id="from" placeholder="Od" /> <span>-</span> <input type="number" className="limit" id="to" placeholder="Do" />
+          <button style={{ marginLeft: '10px' }} onClick={changeLimit}>Potwierdź</button>
+        </form>
         <DevTools />
-        {data ? <Loaded data={data} index={index} isCorrect={isCorrect} showAnswer={showAnswer} setShowAnswer={setShowAnswer} questionsCount={questionsCount} /> : <Loading />}
+        {data ? <Loaded data={data} index={index} isCorrect={isCorrect} showAnswer={showAnswer} setShowAnswer={setShowAnswer} /> : <Loading />}
         <form className='userOdp' onSubmit={(e) => { e.preventDefault(); check() }}>
           <input autoFocus={true} type="text" className={!isCorrect ? 'userOdp shake' : "userOdp"} ref={userOdp} autoComplete="off" placeholder="Tu wpisz odpowiedź" />
         </form>

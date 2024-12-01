@@ -52,10 +52,10 @@ const LearnTable = (props) => {
         <tbody>
           <tr key={0}><th onClick={() => sortTable(0)}>Pytanie</th><th onClick={() => sortTable(1)}>Odpowiedź</th></tr>
           {/* {props.data ? props.data.quiz.questions.map((p, i) => <tr key={i + 1}><td>{p}</td><td>{props.data.quiz.answers[i]}</td></tr>) : null} */}
-          {props.data ? props.data.quiz.map((q,i) => i < props.questionsCount ? <tr key={q.id}>
+          {props.data ? props.data.quiz.map((q) => <tr key={q.id}>
             <td>{q.question}</td>
             <td>{q.answer}</td>
-            </tr> : null) : null}
+            </tr>) : null}
         </tbody>
       </table>
     </div>

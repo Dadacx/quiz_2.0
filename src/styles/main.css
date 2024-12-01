@@ -165,8 +165,12 @@ table tr:last-child td:last-child {
   color: red;
 }
 
-.limit {
-  position: absolute
+form.limit {
+  position: absolute;
+  color: var(--text_color);
+}
+input.limit {
+  width: 60px;
 }
 
 @media screen and (max-width: 600px) {

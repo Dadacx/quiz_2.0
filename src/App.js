@@ -62,7 +62,7 @@ function App() {
               <Route path="/:quiz/home" element={<Home setQuizName={setQuizName} error={error} data={data}/>} />
               <Route path=":quiz/settings" element={<Settings lightBox={lightBox} setLightBox={setLightBox} />} />
               <Route path="/:quiz/learn" element={<Learn data={data} setQuizName={setQuizName} />} />
-              <Route path="/:quiz/quiz" element={<Quiz data={data} setQuizName={setQuizName} />} />
+              <Route path="/:quiz/quiz" element={<Quiz data={data} setQuizName={setQuizName} lightBox={lightBox} />} />
               <Route path="/:quiz/manage" element={<Manage data={data} setQuizName={setQuizName} setReloadData={setReloadData} />} />
             </Route>
           </Routes>

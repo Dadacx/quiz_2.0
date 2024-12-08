@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Loading, calculatePercent, randomizeQuestions } from "../components/Functions";
 import SetTitle from '../components/SetTitle';
 import QuizLogTable from '../components/QuizLogTable'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function Loaded(props) {
   const percent = calculatePercent(props.index, props.data.answers.length - 1)
@@ -31,6 +31,7 @@ const Quiz = (props) => {
   const [quizLog, setQuizLog] = useState([])
   const userOdp = useRef(null)
   const { quiz } = useParams(); // Wyciągamy parametr z URL
+  const navigate = useNavigate();
 
   useEffect(() => {
     props.setQuizName(quiz)
@@ -102,13 +103,24 @@ const Quiz = (props) => {
         console.error(`Pytanie: ${data.questions[index]}\nOdp użytkownika: ${userOdp.current.value}\nPoprawna odp: ${data.answers[index]}`)
         let log = { pytanie: data.questions[index], odp: data.answers[index], userOdp: userOdp.current.value, isCorrect: false }
         setQuizLog([...quizLog, log])
+        setIncorrect((e) => isCorrect ? e + 1 : e)
         setIsCorrect(false)
-        setIncorrect((e) => e + 1)
+        document.querySelector("input[type=text]").classList.add('shake')
+        setTimeout(() => {
+          document.querySelector("input[type=text]").classList.remove('shake')
+        }, 500);
+      }
+      if (props.lightBox.on == 1) {
+        var r = document.querySelector(':root')
+        r.style.setProperty('--box_light', `rgba(255,0,0,1)`)
+        setTimeout(() => {
+          var r = document.querySelector(':root')
+          r.style.setProperty('--box_light', `rgba(${props.lightBox.color[0]},${props.lightBox.color[1]},${props.lightBox.color[2]},${props.lightBox.on})`)
+        }, 2000);
       }
     }
     document.querySelector('input.userOdp').focus()
   }
-
   if (props.data && props.data.status === 'success' && !data) {
     var questions = []
     var answers = []
@@ -147,11 +159,11 @@ const Quiz = (props) => {
         <DevTools />
         {data ? <Loaded data={data} index={index} isCorrect={isCorrect} showAnswer={showAnswer} setShowAnswer={setShowAnswer} /> : <Loading />}
         <form className='userOdp' onSubmit={(e) => { e.preventDefault(); check() }}>
-          <input autoFocus={true} type="text" className={!isCorrect ? 'userOdp shake' : "userOdp"} ref={userOdp} autoComplete="off" placeholder="Tu wpisz odpowiedź" />
+          <input autoFocus={true} type="text" className="userOdp" ref={userOdp} autoComplete="off" placeholder="Tu wpisz odpowiedź" />
         </form>
         <p className="blad" style={{ visibility: isCorrect ? 'hidden' : 'visible' }}>Zła odpowiedź</p>
         <button className="confirm" onClick={check}>SPRAWDŹ</button>
-        <button className="confirm" onClick={() => window.open(`/quiz_2.0/${quiz}/home`, '_top')}>WRÓĆ DO MENU</button></>}
+        <button className="confirm" onClick={() => window.confirm("Czy na pewno chcesz opuścić quiz? Aktualny postęp zostanie utracony.") ? navigate(`/${quiz}/home`) : null}>WRÓĆ DO MENU</button></>}
   </>);
 }
 

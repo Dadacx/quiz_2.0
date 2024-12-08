@@ -38,8 +38,11 @@ div.edit::-webkit-scrollbar-thumb {
 }
 .action span {
     cursor: pointer;
-    margin: 0 5px;
-    background-color: red;
+    margin: 0 3px;
+}
+.action span svg {
+  width: 24px;
+  height: 24px;
 }
 .add {
     cursor: pointer;
@@ -83,6 +86,7 @@ table.editTable td {
     margin-top: 5px;
     align-items: center;
     flex-direction: row;
+    z-index: 1;
 }
 .editBtn {
     margin: 0 5px;
@@ -98,3 +102,144 @@ table.editTable td {
 .btnSave {
     background: var(--buttons_background);
 }
+tr span.loading {
+    display: block;
+    margin: 4px;
+    height: 20px;
+    background: var(--loading_background);
+    background-size: 500px 100px;
+    animation-name: moving-gradient;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+tr span.loading.actions {
+    width: 45%;
+}
+@keyframes moving-gradient {
+    0% { background-position: -250px 0; }
+    100% { background-position: 250px 0; }
+}
+.inputs {
+    display: flex;
+    position: fixed;
+    top: 1.4%;
+    justify-content: space-between;
+    width: 100%;
+}
+.author-inp, .name-inp {
+    background: var(--box_background);
+    color: var(--text_color);
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+    width: 35%;
+    height: 35px;
+    border: 0 white solid;
+    border-radius: 30px;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.name-inp {
+    margin-left: 4%;
+}
+.author-inp {
+    margin-right: 4%;
+}
+
+/* checkbox */
+.checkbox-wrapper-4 * {
+    box-sizing: border-box;
+  }
+  .checkbox-wrapper-4 .cbx {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 3px 3px;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+  .checkbox-wrapper-4 .cbx:hover {
+    background: rgba(0,119,255,0.06);
+  }
+  .checkbox-wrapper-4 .cbx span {
+    float: left;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+  }
+  .checkbox-wrapper-4 .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    transform: scale(1);
+    border: 1px solid var(--text_color);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 1px rgba(0,16,75,0.05);
+  }
+  .checkbox-wrapper-4 .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+  }
+  .checkbox-wrapper-4 .cbx:hover span:first-child {
+    border-color: #07f;
+  }
+  .checkbox-wrapper-4 .inp-cbx {
+    position: absolute;
+    visibility: hidden;
+  }
+  .checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child {
+    background: #07f;
+    border-color: #07f;
+    animation: wave-4 0.4s ease;
+  }
+  .checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child svg {
+    stroke-dashoffset: 0;
+  }
+  .checkbox-wrapper-4 .inline-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  @media screen and (max-width: 640px) {
+    .checkbox-wrapper-4 .cbx {
+      width: 100%;
+      display: inline-block;
+    }
+  }
+  @-moz-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @-webkit-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @-o-keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }
+  @keyframes wave-4 {
+    50% {
+      transform: scale(0.9);
+    }
+  }

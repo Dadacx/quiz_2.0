@@ -54,6 +54,3 @@ table.learnTable, table.learnTable th, table.learnTable td {
     flex-basis: 100%;
     height: 0;
   }
-  .search {
-    margin-top: 10px;
-  }

@@ -47,7 +47,7 @@ const LearnTable = (props) => {
     <div className="list" id="list" style={{ visibility: props.TableVisibility }}>
       <div className="close" onClick={() => props.ChangeTableVisibility("hidden")}><img src={x} /></div>
       <div className="break"></div>
-      <input id="search" className="search" onKeyUp={() => search()}></input>
+      <input id="search" className="search" placeholder="Wyszukaj pytanie" autoComplete="off" onKeyUp={() => search()}></input>
       <table id="table" className="learnTable">
         <tbody>
           <tr key={0}><th onClick={() => sortTable(0)}>Pytanie</th><th onClick={() => sortTable(1)}>Odpowiedź</th></tr>

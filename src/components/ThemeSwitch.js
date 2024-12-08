@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import '../styles/ThemeSwitch.css'
 import { useTheme } from './ThemeContext'
 
 const ThemeSwitch = (props) => {
   const { theme, setTheme } = useTheme()
   const change_theme = (e) => {
-    if(e.target.checked == false) {
+    if(e.target.checked === false) {
       setTheme("dark")
       document.querySelector("body").setAttribute("data-theme","dark")
       localStorage.setItem("theme","dark")
@@ -17,7 +16,7 @@ const ThemeSwitch = (props) => {
   }
     return (
         <div className="wrapper">
-      <input type="checkbox" id="hide-checkbox" checked={theme == "light" ? true : false} onChange={change_theme}/>
+      <input type="checkbox" id="hide-checkbox" checked={theme === "light" ? true : false} onChange={change_theme}/>
       <label htmlFor="hide-checkbox" className="toggle">
         <span className="toggle-button">
           <span className="crater crater-1"></span>

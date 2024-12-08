@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SetTitle from "../components/SetTitle";
 import { QuizzesListFetch } from "../components/Fetch";
+import { Loading } from "../components/Functions";
 
 const Start = (props) => {
   SetTitle('Start')
@@ -26,15 +27,16 @@ const Start = (props) => {
     };
     fetchData();
   }, []);
-  return (
-    <div className="box quizzes-list-box">
+  return (<>
+    {quizzesList ? <div className="box quizzes-list-box">
       <p className="menu">Wybierz quiz</p>
       <div className="quizzes-list">
         {quizzesList ? quizzesList.data.map(item =>
           <Link key={item.id} className="confirm quiz" to={`${item.name}/home`}>{item.display_name}</Link>
         ) : <p className="error">{error}</p>}
       </div>
-    </div>
+    </div> : <Loading />}
+    </>
   );
 }
 

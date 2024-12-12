@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import { ThemeProvider } from "./components/ThemeContext";
+import { ConfigProvider } from "./components/ConfigContext";
 import './styles/main.css'
 import ThemeSwitch from "./components/ThemeSwitch";
 import Start from "./pages/Start";
@@ -12,7 +12,6 @@ import { useState, useEffect } from "react";
 import { QuizFetch } from "./components/Fetch";
 
 function App() {
-  const [lightBox, setLightBox] = useState(localStorage.getItem("lightBox") || { on: 0, color: [255, 255, 255] })
   const [quizName, setQuizName] = useState(null)
   const [reloadData, setReloadData] = useState(true)
   const [data, setData] = useState(null)
@@ -20,7 +19,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const fetchedData = await QuizFetch(quizName);
-      if(fetchedData.status === 'error') {
+      if (fetchedData.status === 'error') {
         setError(fetchedData)
         setData(null);
       } else {
@@ -49,26 +48,26 @@ function App() {
   // Dev-tools
   console.log(data)
   return (
-    <ThemeProvider>
-      <div className="container">
-        <BrowserRouter basename="/quiz_2.0">
-          <Routes>
-            <Route path="/" element={<>
-              <div className="dev-tools" style={{ left: 'unset' }}><div id="dev_tools" style={{ zoom: 0.6 }}><ThemeSwitch /></div>
-              <button onClick={() => console.log(toggleDevTools())}>Wyłącz Dev-Toolsy</button>
-              </div>
-              <Outlet /></>}>
-              <Route index element={<Start setData={setData} setError={setError} setQuizName={setQuizName}/>} />
-              <Route path="/:quiz/home" element={<Home setQuizName={setQuizName} error={error} data={data}/>} />
-              <Route path=":quiz/settings" element={<Settings lightBox={lightBox} setLightBox={setLightBox} />} />
-              <Route path="/:quiz/learn" element={<Learn data={data} setQuizName={setQuizName} />} />
-              <Route path="/:quiz/quiz" element={<Quiz data={data} setQuizName={setQuizName} lightBox={lightBox} />} />
-              <Route path="/:quiz/manage" element={<Manage data={data} setQuizName={setQuizName} setReloadData={setReloadData} />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </ThemeProvider>
+    <ConfigProvider>
+        <div className="container">
+          <BrowserRouter basename="/quiz_2.0">
+            <Routes>
+              <Route path="/" element={<>
+                <div className="dev-tools" style={{ left: 'unset' }}><div id="dev_tools" style={{ zoom: 0.6 }}><ThemeSwitch /></div>
+                  <button onClick={() => console.log(toggleDevTools())}>Wyłącz Dev-Toolsy</button>
+                </div>
+                <Outlet /></>}>
+                <Route index element={<Start setData={setData} setError={setError} setQuizName={setQuizName} />} />
+                <Route path="/:quiz/home" element={<Home setQuizName={setQuizName} error={error} data={data} />} />
+                <Route path=":quiz/settings" element={<Settings />} />
+                <Route path="/:quiz/learn" element={<Learn data={data} setQuizName={setQuizName} />} />
+                <Route path="/:quiz/quiz" element={<Quiz data={data} setQuizName={setQuizName} />} />
+                <Route path="/:quiz/manage" element={<Manage data={data} setQuizName={setQuizName} setReloadData={setReloadData} />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </div>
+    </ConfigProvider>
   );
 }
 

@@ -2,17 +2,18 @@ import "../styles/Learn.css"
 import LernTable from "../components/LearnTable";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Loading, calculatePercent, randomizeQuestions } from "../components/Functions";
+import { Loading, calculatePercent, randomizeQuestions, progressBarText } from "../components/Functions";
+import { useConfig } from '../components/ConfigContext';
 import SetTitle from "../components/SetTitle";
 import { useParams } from 'react-router-dom';
-import { tab } from "@testing-library/user-event/dist/tab";
 
 function Loaded(props) {
-  const percent = calculatePercent(props.index, props.data.answers.length - 1)
+  const { config, setConfig } = useConfig()
+  var percent = calculatePercent(props.index, props.data.answers.length - 1,4)
   return (
     <div className="box" onClick={() => props.ChangeOdpVisibility('visible')}>
       {props.index < props.data.answers.length ? <div className="progress-bar">
-        <div className="progress" style={{ width: percent + '%' }}> Pytanie: {props.index + 1}/{props.data.answers.length}{" (" + percent + "%) "}</div>
+        <div className="progress" style={{ width: percent + '%' }}> {progressBarText(config.progressBar.display,props.index + 1,props.data.answers.length,percent)} </div>
       </div> : null}
       <p className="lern" id="lern">{props.index < props.data.answers.length ? props.data.questions[props.index] : "KONIEC"}</p>
       <p className="odp_lern" id="odp_lern" style={{ visibility: props.OdpVisibility }}>{props.index < props.data.answers.length ? props.data.answers[props.index] : ''}</p>
@@ -21,6 +22,7 @@ function Loaded(props) {
 }
 const Learn = (props) => {
   SetTitle('Ucz się')
+  const { config, setConfig } = useConfig()
   const [TableVisibility, ChangeTableVisibility] = useState("hidden")
   const [index, changeIndex] = useState(0)
   const [answerVisibility, ChangeAnswerVisibility] = useState("hidden")
@@ -33,13 +35,13 @@ const Learn = (props) => {
   }, [quiz]);
   useEffect(() => {
     const handleKeyUp = (e) => {
-      if (e.key === " " || e.key === "ArrowDown") {
+      if (config.hotkeys.showAnswer.includes(e.code)) {
         ChangeAnswerVisibility('visible');
       }
-      if (e.key === "ArrowRight") {
+      if (config.hotkeys.next.includes(e.code)) {
         changeQuestion(1); // Odwołuje się do aktualnej wersji changeQuestion
       }
-      if (e.key === "ArrowLeft") {
+      if (config.hotkeys.previous.includes(e.code)) {
         changeQuestion(-1);
       }
     };

@@ -1,3 +1,76 @@
-div.light_box {
+.settingsBox {
+    margin-top: 55px;
+    padding: 0 0 25px 0;
+    width: 80%;
+    height: fit-content;
+    max-height: 75vh;
+    background-color: var(--lern_table_background);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid;
+    z-index: 1;
+    position: absolute;
     color: var(--text_color);
+}
+h2 {
+    margin-bottom: 10px;
+  }
+.btns {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  input.settingsInput {
+    background: var(--box_background);
+    color: var(--text_color);
+    font-size: 17px;
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    border: 1px var(--text_color) solid;
+    border-radius: 30px;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+  /* Progress Bar */
+  .progress-bar {
+    position: unset;
+  }
+
+  /* Hotkeys */
+  .hotkeyBox {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 60%;
+    justify-content: space-between;
+  }
+  .hotkeyBtns {
+    display: flex;
+    gap: 10px;
+  }
+  .hotkeyBtns span {
+    width: 135px;
+    cursor: pointer;
+    border-bottom: 1px solid;
+    text-align: center;
+  }
+  .blinking {
+    animation-name: blinking-animation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: step-end;
+  }
+  @keyframes blinking-animation {
+    0% { visibility: visible; }
+    50% { visibility:  hidden; }
+    100% { visibility:  visible; }
 }

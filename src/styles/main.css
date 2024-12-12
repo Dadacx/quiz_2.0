@@ -7,8 +7,13 @@
   --text_color: black;
   --lern_table_background: rgb(250, 250, 190);
   --close_backgrouund: red;
-  --box_light: rgba(255, 255, 255, 0);
   --loading_background: linear-gradient(to right, #eee 20%, #ddd 50%, #eee 80%);
+  --color_picker_border: black;
+
+  --box_light: rgba(255, 255, 255, 0);
+  --progress_bar_background: rgb(192, 192, 192);
+  --progress: rgb(116, 194, 92);
+  --progress_bar_color: white;
 }
 
 [data-theme="dark"] {
@@ -19,6 +24,7 @@
   --lern_table_background: #232323;
   --close_backgrouund: #4f5152;
   --loading_background: linear-gradient(to right, #777 20%, #646464 50%, #777 80%);
+  --color_picker_border: #ccc;
   /* --box_light: rgba(255, 255, 255, 0) */
 }
 
@@ -146,15 +152,15 @@ table tr:last-child td:last-child {
 .progress-bar {
   position: absolute;
   top: 6%;
-  background-color: rgb(192, 192, 192);
+  background: var(--progress_bar_background);
   width: 80%;
   border-radius: 15px;
   overflow: hidden;
 }
 
 .progress {
-  background-color: rgb(116, 194, 92);
-  color: white;
+  background-color: var(--progress);
+  color: var(--progress_bar_color);
   text-align: right;
   font-size: 20px;
   border-radius: 15px;
@@ -190,6 +196,60 @@ input.limit {
   background-repeat: no-repeat;
   padding-left: 40px;
   margin-top: 10px;
+}
+/* Checkbox */
+.toggler-wrapper {
+	display: block;
+	width: 45px;
+	height: 25px;
+	cursor: pointer;
+	position: relative;
+}
+
+.toggler-wrapper input[type="checkbox"] {
+	display: none;
+}
+
+.toggler-wrapper input[type="checkbox"]:checked+.toggler-slider {
+	background-color: #44cc66;
+}
+
+.toggler-wrapper .toggler-slider {
+	background-color: #ccc;
+	position: absolute;
+	border-radius: 100px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.toggler-wrapper .toggler-knob {
+	position: absolute;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+/*Style 21*/
+
+.toggler-wrapper.style-21 input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
+	left: calc(100% - 19px - 3px);
+}
+
+.toggler-wrapper.style-21 .toggler-slider {
+	background-color: #eb4f37;
+}
+
+.toggler-wrapper.style-21 .toggler-knob {
+	width: calc(25px - 6px);
+	height: calc(25px - 6px);
+	border-radius: 50%;
+	left: 3px;
+	top: 3px;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 @media screen and (max-width: 600px) {

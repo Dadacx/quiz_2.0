@@ -1,18 +1,18 @@
 .list {
   z-index: 1;
-    margin-top: 60px;
-    width: 70%;
-    height: fit-content;
-    max-height: 90vh;
-    position: absolute;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    overflow: auto;
-    overflow-wrap: anywhere;
-    background-color: var(--lern_table_background);
-    flex-wrap: wrap;
-    color: var(--text_color);
+  margin-top: 60px;
+  width: 70%;
+  height: fit-content;
+  max-height: 90vh;
+  position: absolute;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  background-color: var(--lern_table_background);
+  flex-wrap: wrap;
+  color: var(--text_color);
 }
 .list::-webkit-scrollbar {
   width: 10px;

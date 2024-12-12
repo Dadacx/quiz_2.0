@@ -1,38 +1,48 @@
-import { Link } from "react-router-dom";
+import "../styles/Settings.css"
+import { useConfig } from '../components/ConfigContext';
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import SetTitle from "../components/SetTitle";
 import ArrowLeftIcon from '../components/ArrowLeftIcon'
 import ThemeSwitch from '../components/ThemeSwitch'
-import "../styles/Settings.css"
-import SetTitle from "../components/SetTitle";
-import { useParams } from 'react-router-dom';
+import LightBox from "../components/SettingsComponents/LightBox";
+import ProgressBar from "../components/SettingsComponents/ProgressBar";
+import Hotkeys from "../components/SettingsComponents/Hotkeys";
+import x from '../images/close.svg'
 
-function hexToRgb(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? [parseInt(result[1], 16),parseInt(result[2], 16), parseInt(result[3], 16)] : null;
-  }
-  function rgbToHex(r, g, b) {
-    const red = r.toString(16).padStart(2, '0');
-    const green = g.toString(16).padStart(2, '0');
-    const blue = b.toString(16).padStart(2, '0');
+const Settings = () => {
+    const [settings, setSettings] = useState(null)
+    const { config, setConfig, defaultConfig, updateFromConfig } = useConfig()
 
-    return `#${red}${green}${blue}`;
-}
-
-const Settings = ({lightBox, setLightBox}) => {
-    var r = document.querySelector(':root')
-    r.style.setProperty('--box_light', `rgba(${lightBox.color[0]},${lightBox.color[1]},${lightBox.color[2]},${lightBox.on})`)
+    var component
+    switch (settings) {
+        case 'light_box':
+            component = <LightBox />
+            break;
+        case 'progress_bar':
+            component = <ProgressBar />
+            break;
+        case 'hotkeys':
+            component = <Hotkeys />
+            break;
+        default:
+            break;
+    }
+    updateFromConfig()
     SetTitle('Ustawienia')
     const { quiz } = useParams();
-    return (
+    return (<>
+        {component}
+        {settings ? <div className="close" onClick={() => setSettings(null)}><img alt="close_icon" src={x} /></div> : null}
         <div className="box">
-            <ThemeSwitch />
+            <ThemeSwitch setConfig={setConfig} />
             <Link className="arrow_back" to={`/${quiz}/home`}><ArrowLeftIcon width={40} height={40} color="var(--text_color)" /></Link>
             <p className="menu">USTAWIENIA</p>
-            <div className="light_box">
-                <span>Podświetlenie boxa</span>
-                <input type="checkbox" checked={lightBox.on === 1 ? true : false} onChange={() => setLightBox({...lightBox, on: lightBox.on === 1 ? 0 : 1})} />
-                <input type="color" value={rgbToHex(lightBox.color[0],lightBox.color[1],lightBox.color[2])} onChange={(e) => setLightBox({...lightBox, color: hexToRgb(e.target.value)})} disabled={lightBox.on === 0 ? true : false} />
-            </div>
-        </div>
+            <button disabled={settings ? true : false} className="confirm" style={{marginTop:'inherit'}} onClick={() => setSettings('light_box')}>Podświetlenie boxa</button>
+            <button disabled={settings ? true : false} className="confirm" onClick={() => setSettings('progress_bar')}>Progress bar</button>
+            <button disabled={settings ? true : false} className="confirm" onClick={() => setSettings('hotkeys')}>Skróty klawiszowe</button>
+            <button disabled={settings ? true : false} className="confirm" onClick={() => setConfig(defaultConfig)}>Przywróć domyślne</button>
+        </div></>
     )
 }
 

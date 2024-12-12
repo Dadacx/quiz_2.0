@@ -1,17 +1,18 @@
 import '../styles/Quiz.css'
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Loading, calculatePercent, randomizeQuestions } from "../components/Functions";
+import { Loading, calculatePercent, randomizeQuestions, progressBarText } from "../components/Functions";
 import SetTitle from '../components/SetTitle';
 import QuizLogTable from '../components/QuizLogTable'
 import { useParams, useNavigate } from 'react-router-dom';
+import { useConfig } from '../components/ConfigContext';
 
 function Loaded(props) {
-  const percent = calculatePercent(props.index, props.data.answers.length - 1)
+  const percent = calculatePercent(props.index, props.data.answers.length - 1,4)
   return (
     <div className="box quiz-box">
       {props.index < props.data.answers.length ? <div className="progress-bar">
-        <div className="progress" style={{ width: percent + '%' }}> Pytanie: {props.index + 1}/{props.data.answers.length}{" (" + percent + "%) "}</div>
+        <div className="progress" style={{ width: percent + '%' }}> {progressBarText(props.config.progressBar.display,props.index + 1,props.data.answers.length,percent)} </div>
       </div> : null}
       <p className="pytanie">{props.index < props.data.answers.length ? props.data.questions[props.index] : null}</p>
       <p className={props.showAnswer ? 'odp_active' : 'odp'} style={{ visibility: props.isCorrect ? 'hidden' : 'visible' }}
@@ -31,6 +32,7 @@ const Quiz = (props) => {
   const [quizLog, setQuizLog] = useState([])
   const userOdp = useRef(null)
   const { quiz } = useParams(); // Wyciągamy parametr z URL
+  const { config, setConfig } = useConfig()
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,12 +112,12 @@ const Quiz = (props) => {
           document.querySelector("input[type=text]").classList.remove('shake')
         }, 500);
       }
-      if (props.lightBox.on == 1) {
+      if (config.lightBox.on == 1) {
         var r = document.querySelector(':root')
         r.style.setProperty('--box_light', `rgba(255,0,0,1)`)
         setTimeout(() => {
           var r = document.querySelector(':root')
-          r.style.setProperty('--box_light', `rgba(${props.lightBox.color[0]},${props.lightBox.color[1]},${props.lightBox.color[2]},${props.lightBox.on})`)
+          r.style.setProperty('--box_light', `rgba(${config.lightBox.color[0]},${config.lightBox.color[1]},${config.lightBox.color[2]},1)`)
         }, 2000);
       }
     }
@@ -157,7 +159,7 @@ const Quiz = (props) => {
           <button style={{ marginLeft: '10px' }} onClick={changeLimit}>Potwierdź</button>
         </form>
         <DevTools />
-        {data ? <Loaded data={data} index={index} isCorrect={isCorrect} showAnswer={showAnswer} setShowAnswer={setShowAnswer} /> : <Loading />}
+        {data ? <Loaded data={data} index={index} isCorrect={isCorrect} showAnswer={showAnswer} setShowAnswer={setShowAnswer} config={config} /> : <Loading />}
         <form className='userOdp' onSubmit={(e) => { e.preventDefault(); check() }}>
           <input autoFocus={true} type="text" className="userOdp" ref={userOdp} autoComplete="off" placeholder="Tu wpisz odpowiedź" />
         </form>

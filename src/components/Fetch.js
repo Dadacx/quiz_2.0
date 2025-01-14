@@ -1,6 +1,6 @@
 const QuizzesListFetch = async () => {
     try {
-        const res = await fetch(`https://frog02-20766.wykr.es/get_quizzes_list.php`);
+        const res = await fetch(`https://frog02-20766.wykr.es/quiz/get_quizzes_list.php`);
         //if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
         var data = await res.json();
         // console.log(data)
@@ -13,7 +13,7 @@ const QuizzesListFetch = async () => {
 
   const QuizFetch = async (name) => {
     try {
-        const res = await fetch(`https://frog02-20766.wykr.es/get_quiz.php?name=${name}`);
+        const res = await fetch(`https://frog02-20766.wykr.es/quiz/get_quiz.php?name=${name}`);
         //if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
         var data = await res.json();
         // console.log(data)
@@ -25,7 +25,7 @@ const QuizzesListFetch = async () => {
   };
   const EditFetch = async (editedData) => {
     try {
-        const res = await fetch(`https://frog02-20766.wykr.es/edit.php`, {
+        const res = await fetch(`https://frog02-20766.wykr.es/quiz/edit.php`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json" // ustawienie nagłówka na JSON
